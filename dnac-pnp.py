@@ -87,7 +87,7 @@ def SetDevSudi(myDevId, DevSn, myToken):
 #
 def claimPnpDevice(myDevId, myTempId, myGoldenImageId, myToken):
 	url = 'https://localhost:8443/api/v1/onboarding/pnp-device/claim'
-	values_str = '{ "pushDeviceIdCertificate": "true", "deviceClaimList": [ { "configList":[ { "configId":"' + myTempId + '", "configParameters":[ { "key": "logginHost", "value": "1.1.1.1"} ] }], "deviceId":"' + myDevId + '" } ], "configId":"' + myTempId + '", "populateInventory":"false" }'
+	values_str = '{ "pushDeviceIdCertificate": "true", "deviceClaimList": [ { "configList":[ { "configId":"' + myTempId + '", "configParameters":[ { "key": "host", "value": "1.1.1.1"} ] }], "deviceId":"' + myDevId + '" } ], "configId":"' + myTempId + '", "populateInventory":"true" }'
 	values = json.loads(values_str)
 	data = json.dumps(values).encode('utf-8')
 	req = Request(url, data)
@@ -142,7 +142,7 @@ def getTempId(myProjName, myToken):
 	json_object = json.loads(response_string)
 	myTempList = json_object[0]['templates']
 	for key, val in myTempList[0].items():
-		# print('keys: ' + str(key) + ' vals: ' + str(val))
+		print('keys: ' + str(key) + ' vals: ' + str(val))
 		if str(key) == "id":
 			myTempId = str(val)
 	response.close()
